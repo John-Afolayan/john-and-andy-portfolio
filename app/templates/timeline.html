@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form id="form" action="/api/timeline_post" method="get">
+    <input type="text" id="timeline" name="timeline" value="This is some dummy text for the timeline"><br>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+
+    console.log("Start of script");
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', function(e) {
+        console.log("Start of event listener");
+        // Prevent default behavior:
+        e.preventDefault();
+        // Create payload as new FormData object:
+        const payload = new FormData(form);
+        // Post the payload using Fetch:
+        fetch('http://johnafolayan.duckdns.org:5000/api/timeline_post', {
+            method: 'POST',
+            body: payload,
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+    })
+    document.write([...payload])
+</script>
+<h1>Timeline Post</h1>
+<p>
+{% for i in data %}
+<h1>{{ i }}</h1>
+{% endfor %}
+</p>
+{% endblock %}
+
+</body>
+</html>

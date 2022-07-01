@@ -74,3 +74,7 @@ def contactUs():
 @app.route('/hobbies/')
 def hobbies():
     return render_template('hobbies.html', pagetitle='Hobbies')
+
+@app.route('/timeline/')
+def timeline():
+    return render_template('timeline.html', pagetitle='Timeline')
