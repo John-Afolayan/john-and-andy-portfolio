@@ -61,9 +61,9 @@ def blog():
     return render_template('blog.html', pagetitle='Blog')
 
 
-@app.route('/aboutus/')
-def aboutUs():
-    return render_template('aboutus.html', pagetitle='About Me')
+@app.route('/aboutme/')
+def aboutMe():
+    return render_template('aboutme.html', pagetitle='About Me')
 
 
 @app.route('/contact-us/')
