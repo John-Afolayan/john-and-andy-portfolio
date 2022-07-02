@@ -2,40 +2,44 @@
 {% block title %}Home Page{% endblock %}
 {% block content %}
 
-<body>
+    <body>
 
-<form id="form" action="/api/timeline_post" method="get">
-    <input type="text" id="timeline" name="timeline" value="This is some dummy text for the timeline"><br>
-    <button type="submit">Submit</button>
-</form>
+    <form id="form" action="/api/timeline_post" method="POST">
+        <input type="text" id="name" name="name" value="John"><br>
+        <input type="email" id="email" name="email" value="john@mlh.io"><br>
+        <input type="textarea" id="content" name="content" value="This is some dummy text for the timeline"><br>
+        <button type="submit">Submit</button>
+    </form>
 
-<script>
+    <script>
 
-    console.log("Start of script");
-    const form = document.getElementById('form');
+        console.log("Start of script");
+        const form = document.getElementById('form');
 
-    form.addEventListener('submit', function(e) {
-        console.log("Start of event listener");
-        // Prevent default behavior:
-        e.preventDefault();
-        // Create payload as new FormData object:
-        const payload = new FormData(form);
-        // Post the payload using Fetch:
-        fetch('http://johnafolayan.duckdns.org:5000/api/timeline_post', {
-            method: 'POST',
-            body: payload,
+        form.addEventListener('submit', function(e) {
+            console.log('splitting work')
+            ///console.log("Start of event listener");
+            // Prevent default behavior:
+            //e.preventDefault();
+            // Create payload as new FormData object:
+            //  const payload = new FormData(form);
+            // Post the payload using Fetch:
+            // fetch('http://johnafolayan.duckdns.org:5000/api/timeline_post', {
+            //    method: 'POST',
+            //    body: payload,
+            //})
+            {#.then(res => res.json())#}
+            {#.then(data => console.log(data))#}
         })
-            .then(res => res.json())
-            .then(data => console.log(data))
-    })
-    document.write([...payload])
-</script>
-<h1>Timeline Post</h1>
-<p>
-    {% for i in data %}
-        <h1>{{ i }}</h1>
+        //document.write([...payload])
+    </script>
+    <h1>Timeline Post</h1>
+    <ul>
+    {% for event in events %}
+        <li>{{ event.name }}</li>
+
     {% endfor %}
-</p>
+    </ul>
 {% endblock %}
 
 </body>
