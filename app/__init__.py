@@ -30,7 +30,6 @@ class TimelinePost(Model):
 mydb.connect()
 mydb.create_tables([TimelinePost])
 
-
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
     name = request.form['name']
@@ -43,8 +42,6 @@ def post_time_line_post():
         return model_to_dict(timeline_post)
     except:
         return jsonify({"error": 'unable to save post'}), 500
-
-
 
 
 @app.route('/api/timeline_post', methods=['GET'])
