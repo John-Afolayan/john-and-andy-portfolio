@@ -1,13 +1,12 @@
 import datetime
 import os
 import sys
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
 from peewee import *
 from playhouse.shortcuts import model_to_dict
 
 load_dotenv()
-print("MYDB ====== ",  os.getenv("MYSQL_DATABASE"))
 app = Flask(__name__)
 
 mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
@@ -37,8 +36,15 @@ def post_time_line_post():
     name = request.form['name']
     email = request.form['email']
     content = request.form['content']
+
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
-    return model_to_dict(timeline_post)
+    try:
+        timeline_post.save()
+        return model_to_dict(timeline_post)
+    except:
+        return jsonify({"error": 'unable to save post'}), 500
+
+
 
 
 @app.route('/api/timeline_post', methods=['GET'])
@@ -75,6 +81,9 @@ def contactUs():
 def hobbies():
     return render_template('hobbies.html', pagetitle='Hobbies')
 
+
 @app.route('/timeline/')
 def timeline():
-    return render_template('timeline.html', pagetitle='Timeline')
+    posts = TimelinePost.select()
+
+    return render_template('timeline.html', pagetitle='Timeline', events= [post for post in posts])
