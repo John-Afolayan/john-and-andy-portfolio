@@ -23,6 +23,7 @@ class TimelinePost(Model):
     content = TextField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
+
     class Meta:
         database = mydb
 
