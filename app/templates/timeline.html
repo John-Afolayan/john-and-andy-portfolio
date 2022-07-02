@@ -1,9 +1,13 @@
 {% extends "template.html" %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
-
+    <head>
+        <link rel="stylesheet" href="../static/styles/timeline.css">
+        <link rel="stylesheet" href="../static/styles/coderimage.css">
+    </head>
     <body>
 
+    <h2>Input new timeline</h2>
     <form id="form" action="/api/timeline_post" method="POST">
         <input type="text" id="name" name="name" value="John"><br>
         <input type="email" id="email" name="email" value="john@mlh.io"><br>
@@ -33,13 +37,18 @@
         })
         //document.write([...payload])
     </script>
-    <h1>Timeline Post</h1>
+    <div class="posts">
+    <h2>Timeline Post</h2>
     <ul>
-    {% for event in events %}
-        <li>{{ event.name }}</li>
-
-    {% endfor %}
+        {% for event in events %}
+            <li>Id: {{ event.id }}</li>
+            <li>Name: {{ event.name }}</li>
+            <li>Name: {{ event.email }}</li>
+            <li>Content: {{ event.content }}</li>
+            <li>Created at: {{ event.created_at }}</li>]
+        {% endfor %}
     </ul>
 {% endblock %}
+</div>
 
 </body>
