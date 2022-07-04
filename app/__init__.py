@@ -81,6 +81,7 @@ def hobbies():
 
 @app.route('/timeline/')
 def timeline():
-    posts = TimelinePost.select()
+    #posts = TimelinePost.select().order_by(TimelinePost.created_at.desc())
 
-    return render_template('timeline.html', pagetitle='Timeline', events= [post for post in posts])
+    #return render_template('timeline.html', pagetitle='Timeline', events= [post for post in posts])
+    return render_template('timeline.html', pagetitle='Timeline')

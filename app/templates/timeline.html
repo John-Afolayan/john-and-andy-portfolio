@@ -1,5 +1,5 @@
 {% extends "template.html" %}
-{% block title %}Home Page{% endblock %}
+{% block title %}{{pagetitle}}{% endblock %}
 {% block content %}
     <head>
         <link rel="stylesheet" href="../static/styles/timeline.css">
@@ -8,47 +8,86 @@
     <body>
 
     <h2>Input new timeline</h2>
-    <form id="form" action="/api/timeline_post" method="POST">
+    {#<form id="form" action="/api/timeline_post" method="POST">
+        <input type="text" id="name" name="name" value="John"><br>
+        <input type="email" id="email" name="email" value="john@mlh.io"><br>
+        <input type="textarea" id="content" name="content" value="This is some dummy text for the timeline"><br>
+        <button type="submit">Submit</button>
+    </form>#}
+
+    <form id="form">
         <input type="text" id="name" name="name" value="John"><br>
         <input type="email" id="email" name="email" value="john@mlh.io"><br>
         <input type="textarea" id="content" name="content" value="This is some dummy text for the timeline"><br>
         <button type="submit">Submit</button>
     </form>
 
+    <table id="posts"></table>
+
     <script>
 
-        console.log("Start of script");
+        const url = '/api/timeline_post'
+        const posts = document.getElementById('posts');
+        window.onload = getPosts(url)
+        async function getPosts(url) {
+            const response = await fetch(url);
+            var data = await response.json();
+            show(data.timeline_posts)
+        }
+
+        function show(data) {
+            //console.log(data);
+            let tab =
+                `<tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Content</th>
+                <th>Created At</th>
+                </tr>`;
+            for (let r of data) {
+                tab += `<tr>
+                <td>${r.name} </td>
+                <td>${r.email}</td>
+                <td>${r.content}</td>
+                <td>${r.created_at}</td>
+                </tr>`;
+            }
+            posts.innerHTML = tab;
+        }
+
         const form = document.getElementById('form');
 
         form.addEventListener('submit', function(e) {
             console.log('splitting work')
             ///console.log("Start of event listener");
             // Prevent default behavior:
-            //e.preventDefault();
-            // Create payload as new FormData object:
-            //  const payload = new FormData(form);
+            e.preventDefault();
+            // Create payload as new FormData object
+            const payload = new FormData(form);
             // Post the payload using Fetch:
-            // fetch('http://johnafolayan.duckdns.org:5000/api/timeline_post', {
-            //    method: 'POST',
-            //    body: payload,
-            //})
-            {#.then(res => res.json())#}
-            {#.then(data => console.log(data))#}
+            fetch(url, {
+            method: 'POST',
+            body: payload,
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            getPosts(url)
         })
         //document.write([...payload])
     </script>
-    <div class="posts">
+
+    {#<div class="posts">
     <h2>Timeline Post</h2>
     <ul>
         {% for event in events %}
             <li>Id: {{ event.id }}</li>
             <li>Name: {{ event.name }}</li>
-            <li>Name: {{ event.email }}</li>
+            <li>Email: {{ event.email }}</li>
             <li>Content: {{ event.content }}</li>
-            <li>Created at: {{ event.created_at }}</li>]
+            <li>Created at: {{ event.created_at }}</li>-----
         {% endfor %}
     </ul>
 {% endblock %}
-</div>
-
+</div>#}
+{% endblock %}
 </body>
