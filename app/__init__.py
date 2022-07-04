@@ -64,7 +64,6 @@ def post_time_line_post():
         return jsonify({"message": err.get_str()}), 400
 
 
-
 @app.route('/api/timeline_post', methods=['GET'])
 def get_time_line_post():
     return {
