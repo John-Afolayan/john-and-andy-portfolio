@@ -1,0 +1,24 @@
+.posts ul{
+    display: flex;
+    flex-direction: column;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+}
+
+#form {
+      width: 200px;
+      margin-top: 40px;
+      margin-left: auto;
+      margin-right: auto;
+    }
