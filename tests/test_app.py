@@ -13,7 +13,7 @@ class AppTestCase(unittest.TestCase):
     response = self.client.get("/")
     self.assertEqual(response.status_code, 200)
     html = response.get_data(as_text=True)
-    self.assertIn("John's Portfolio", html)
+    self.assertIn("John Afolayan", html)
     self.assertIn('<link rel="stylesheet" href="../static/styles/menubar.css">', html)
   
   def test_timeline(self):
