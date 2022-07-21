@@ -22,11 +22,27 @@
         <button type="submit">Submit</button>
     </form>
 
-    <table id="posts"></table>
+
+    <table id="posts">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Content</th>
+            <th>Created At</th>
+        </tr>
+        {% for timeline_post in timeline_posts %}
+            <tr>
+                <td>{{ timeline_post.name }}</td>
+                 <td>{{ timeline_post.email }}</td>
+                 <td>{{ timeline_post.content }}</td>
+                <td>{{ timeline_post.created_at }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
     <script>
-
-        const url = '/api/timeline_post'
+/*
+       { const url = '/api/timeline_post'
         const posts = document.getElementById('posts');
         window.onload = getPosts(url)
         async function getPosts(url) {
@@ -34,6 +50,7 @@
             var data = await response.json();
             show(data.timeline_posts)
         }
+}
 
         function show(data) {
             //console.log(data);
@@ -54,9 +71,9 @@
             }
             posts.innerHTML = tab;
         }
-
+*/
         const form = document.getElementById('form');
-
+        const url = '/api/timeline_post';
         form.addEventListener('submit', function(e) {
             console.log('splitting work')
             ///console.log("Start of event listener");
@@ -70,24 +87,15 @@
             body: payload,
             })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                console.log(data)
+                console.log('trying to reload ?')
+                window.location.reload(true);
+            })
             getPosts(url)
+
         })
-        //document.write([...payload])
     </script>
 
-    {#<div class="posts">
-    <h2>Timeline Post</h2>
-    <ul>
-        {% for event in events %}
-            <li>Id: {{ event.id }}</li>
-            <li>Name: {{ event.name }}</li>
-            <li>Email: {{ event.email }}</li>
-            <li>Content: {{ event.content }}</li>
-            <li>Created at: {{ event.created_at }}</li>-----
-        {% endfor %}
-    </ul>
-{% endblock %}
-</div>#}
 {% endblock %}
 </body>

@@ -35,9 +35,9 @@ class AppTestCase(unittest.TestCase):
     
     timelinePage = self.client.get('/timeline/')
     self.assertEqual(timelinePage.status_code, 200)
-    self.assertIn('<li>Jane</li>', timelinePage.get_data(as_text=True))
+    self.assertIn('<td>Jane</td>', timelinePage.get_data(as_text=True))
 
-    # print(timelinePage.get_data(as_text=True))
+    #print(timelinePage.get_data(as_text=True))
   
   def test_malformed_timeline_post(self):
     """ 
