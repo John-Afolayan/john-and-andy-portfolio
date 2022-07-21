@@ -8,12 +8,6 @@
     <body>
 
     <h2>Input new timeline</h2>
-    {#<form id="form" action="/api/timeline_post" method="POST">
-        <input type="text" id="name" name="name" value="John"><br>
-        <input type="email" id="email" name="email" value="john@mlh.io"><br>
-        <input type="textarea" id="content" name="content" value="This is some dummy text for the timeline"><br>
-        <button type="submit">Submit</button>
-    </form>#}
 
     <form id="form">
         <input type="text" id="name" name="name" value="John"><br>
@@ -41,37 +35,7 @@
     </table>
 
     <script>
-/*
-       { const url = '/api/timeline_post'
-        const posts = document.getElementById('posts');
-        window.onload = getPosts(url)
-        async function getPosts(url) {
-            const response = await fetch(url);
-            var data = await response.json();
-            show(data.timeline_posts)
-        }
-}
 
-        function show(data) {
-            //console.log(data);
-            let tab =
-                `<tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Content</th>
-                <th>Created At</th>
-                </tr>`;
-            for (let r of data) {
-                tab += `<tr>
-                <td>${r.name} </td>
-                <td>${r.email}</td>
-                <td>${r.content}</td>
-                <td>${r.created_at}</td>
-                </tr>`;
-            }
-            posts.innerHTML = tab;
-        }
-*/
         const form = document.getElementById('form');
         const url = '/api/timeline_post';
         form.addEventListener('submit', function(e) {
